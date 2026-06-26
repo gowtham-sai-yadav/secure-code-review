@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Scaler Support Desk - My Tickets{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>My Tickets</h1>
+
+  <div class="toolbar">
+    <form class="search-form" method="get" action="/tickets/search">
+      <input type="text" name="q" placeholder="Search subject" value="{{ search_term or '' }}">
+      <button type="submit">Search</button>
+    </form>
+    <div class="status-filters">
+      <a href="/tickets/by-status?status=open">open</a>
+      <a href="/tickets/by-status?status=closed">closed</a>
+      <a href="/tickets/by-status?status=pending">pending</a>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>ID</th><th>Subject</th><th>Status</th><th>Priority</th></tr>
+    {% for t in tickets %}
+    <tr>
+      <td><a href="/tickets/{{ t.id }}">#{{ t.id }}</a></td>
+      <td><a href="/tickets/{{ t.id }}">{{ t.subject }}</a></td>
+      <td><span class="badge badge-{{ t.status }}">{{ t.status }}</span></td>
+      <td><span class="badge badge-{{ t.priority }}">{{ t.priority }}</span></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

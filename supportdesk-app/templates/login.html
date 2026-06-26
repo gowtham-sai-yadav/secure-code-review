@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Scaler Support Desk - Login{% endblock %}
+{% block content %}
+<div class="login-wrap">
+  <div class="card">
+    <h1>Sign in</h1>
+    {% if error %}<div class="error-banner">{{ error }}</div>{% endif %}
+    <form method="post">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div class="card demo-credentials">
+    <h2>Test Accounts</h2>
+    <table>
+      <tr><th>Username</th><th>Password</th><th>Role</th></tr>
+      <tr><td>alice</td><td>alice123</td><td>user</td></tr>
+      <tr><td>bob</td><td>bob123</td><td>user</td></tr>
+      <tr><td>carol</td><td>carol123</td><td>admin</td></tr>
+    </table>
+  </div>
+</div>
+{% endblock %}

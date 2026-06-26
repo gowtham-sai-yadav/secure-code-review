@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Scaler Support Desk{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/">Scaler Support Desk</a>
+      {% if user %}
+      <nav>
+        <span class="credits">{{ user.escalation_credits }} credits</span>
+        <span class="username">{{ user.username }}</span>
+        {% if user.role == 'admin' %}<a href="/admin/reports">Admin Reports</a>{% endif %}
+        <a href="/logout">Logout</a>
+      </nav>
+      {% endif %}
+    </div>
+  </header>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

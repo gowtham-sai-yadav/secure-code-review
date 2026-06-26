@@ -1,0 +1,4 @@
+Internal IT notes - not for general distribution.
+
+Q4 maintenance window is scheduled for the first weekend of the month.
+Escalation queue review happens every Monday at 9am.

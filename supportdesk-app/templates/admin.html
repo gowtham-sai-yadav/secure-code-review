@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Admin Reports{% endblock %}
+{% block content %}
+<p><a href="/">&larr; Back to dashboard</a></p>
+<div class="card">
+  <h1>All Tickets</h1>
+  <table>
+    <tr><th>ID</th><th>Owner</th><th>Subject</th><th>Status</th><th>Priority</th></tr>
+    {% for t in tickets %}
+    <tr>
+      <td>#{{ t.id }}</td>
+      <td>{{ t.username }}</td>
+      <td>{{ t.subject }}</td>
+      <td><span class="badge badge-{{ t.status }}">{{ t.status }}</span></td>
+      <td><span class="badge badge-{{ t.priority }}">{{ t.priority }}</span></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

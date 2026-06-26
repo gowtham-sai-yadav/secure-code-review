@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Ticket #{{ ticket.id }}{% endblock %}
+{% block content %}
+<p><a href="/">&larr; Back to dashboard</a></p>
+
+<div class="card">
+  <h1>{{ ticket.subject }}</h1>
+  <div class="ticket-meta">
+    <span class="badge badge-{{ ticket.status }}">{{ ticket.status }}</span>
+    <span class="badge badge-{{ ticket.priority }}">{{ ticket.priority }}</span>
+  </div>
+  <p class="ticket-body">{{ ticket.body }}</p>
+
+  <form method="post" action="/tickets/{{ ticket.id }}/escalate">
+    <input type="hidden" name="cost" value="1">
+    <button type="submit" class="btn-secondary">Escalate (1 credit)</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Attachments</h2>
+  <ul class="attachment-list">
+    <li><a href="/tickets/{{ ticket.id }}/attachments/boot_log.txt">boot_log.txt</a> &middot; <a href="/tickets/{{ ticket.id }}/attachments/boot_log.txt/preview">preview</a></li>
+  </ul>
+  <form method="post" action="/tickets/{{ ticket.id }}/upload" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <button type="submit" class="btn-secondary">Upload attachment</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Comments</h2>
+  {% for c in comments %}
+    <div class="comment">
+      <span class="comment-author">{{ c.author }}</span>{{ c.body|safe }}
+    </div>
+  {% endfor %}
+
+  <form method="post" action="/tickets/{{ ticket.id }}/comment">
+    <div class="field">
+      <textarea name="body" rows="3" placeholder="Add a comment"></textarea>
+    </div>
+    <button type="submit">Add comment</button>
+  </form>
+</div>
+{% endblock %}

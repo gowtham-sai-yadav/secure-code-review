@@ -1,0 +1,153 @@
+SEMGREP - OVERVIEW AND INSTALLATION GUIDE
+==========================================
+
+WHAT IS SEMGREP?
+----------------
+Semgrep is an open-source static application security testing (SAST) tool.
+It scans source code against a library of rules and flags patterns that
+commonly indicate security issues - things like SQL injection, command
+injection, hardcoded secrets, weak cryptography, path traversal, and more.
+
+For this assignment, Semgrep is meant to be a STARTING POINT for your
+review, not a final answer. It will flag some things that are not actually
+exploitable in context (false positives), and it will miss issues that
+require understanding business logic or access control (like IDOR or
+broken access control). You are expected to manually verify every finding
+before classifying it.
+
+------------------------------------------------------------
+INSTALLATION
+------------------------------------------------------------
+
+All platforms need Python 3.8 or newer installed first. Check with:
+
+    python --version
+    (or python3 --version on macOS/Linux)
+
+If Python is missing, install it from https://python.org before continuing.
+
+--------------------------------
+OPTION A - pip (works on all platforms, recommended)
+--------------------------------
+
+It's best practice to install Semgrep inside a virtual environment so it
+doesn't interfere with other Python projects.
+
+Windows (PowerShell or cmd):
+
+    python -m venv semgrep-venv
+    semgrep-venv\Scripts\activate
+    pip install semgrep
+    semgrep --version
+
+macOS / Linux (bash/zsh):
+
+    python3 -m venv semgrep-venv
+    source semgrep-venv/bin/activate
+    pip install semgrep
+    semgrep --version
+
+Once installed this way, remember to activate the virtual environment
+again (the "activate" command above) every time you open a new terminal
+and want to use semgrep.
+
+If you'd rather install it globally without a virtual environment:
+
+    pip install semgrep          # Windows
+    pip3 install semgrep         # macOS/Linux
+
+--------------------------------
+OPTION B - macOS via Homebrew
+--------------------------------
+
+If you have Homebrew installed (https://brew.sh):
+
+    brew install semgrep
+    semgrep --version
+
+--------------------------------
+OPTION C - pipx (clean, isolated install, macOS/Linux/Windows)
+--------------------------------
+
+pipx installs Python CLI tools into their own isolated environment
+automatically, which avoids dependency conflicts.
+
+    pip install pipx
+    pipx install semgrep
+    semgrep --version
+
+--------------------------------
+OPTION D - Docker (any platform with Docker installed)
+--------------------------------
+
+Useful if you don't want to install Python packages at all.
+
+    docker pull semgrep/semgrep
+    docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep scan --config auto /src
+
+On Windows PowerShell, replace ${PWD} with ${PWD} as well (PowerShell
+supports this syntax); on cmd.exe use %cd% instead.
+
+------------------------------------------------------------
+RUNNING YOUR FIRST SCAN
+------------------------------------------------------------
+
+Navigate to the folder containing the source code you want to review,
+then run:
+
+    semgrep scan --config auto .
+
+This downloads and applies Semgrep's default community rule set and
+scans every file in the current directory and its subfolders. The first
+run may take a minute or two while rules are fetched - this is normal.
+
+To scan a single file instead of a whole folder:
+
+    semgrep scan --config auto app.py
+
+To save the output to a file for your report:
+
+    semgrep scan --config auto . > semgrep_results.txt
+
+------------------------------------------------------------
+TROUBLESHOOTING
+------------------------------------------------------------
+
+"semgrep: command not found" / "semgrep is not recognized"
+  - Your virtual environment may not be activated. Re-run the activate
+    command shown above for your platform.
+  - If installed globally with pip, make sure Python's script/bin
+    directory is in your PATH.
+
+Scan is very slow or seems stuck
+  - The first run downloads the rule registry from the internet; this is
+    normal and only happens once per rule-set version. Make sure you have
+    an active internet connection.
+
+Scan reports findings inside .venv or site-packages folders
+  - You're accidentally scanning installed dependencies, not just your
+    own code. Either scan specific files/folders instead of the whole
+    project, or exclude virtual environments:
+
+      semgrep scan --config auto --exclude .venv --exclude venv .
+
+Permission or SSL errors on corporate/restricted networks
+  - Try running from a personal network, or ask your instructor about
+    an offline/offline-rules option if you're behind a restrictive proxy.
+
+------------------------------------------------------------
+USEFUL FLAGS
+------------------------------------------------------------
+
+  --config auto         use Semgrep's default recommended rule sets
+  --config p/python      use only the Python-specific rule pack
+  --config p/flask        use only the Flask-specific rule pack
+  --exclude <path>        skip a file or folder (e.g. --exclude .venv)
+  --json                  output results as JSON instead of plain text
+
+------------------------------------------------------------
+FURTHER READING
+------------------------------------------------------------
+
+Official documentation: https://semgrep.dev/docs/
+Rule registry / rule explanations: https://semgrep.dev/r

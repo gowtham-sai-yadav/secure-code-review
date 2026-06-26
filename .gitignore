@@ -1,0 +1,15 @@
+# Python venv used to install/run Semgrep
+semgrep-venv/
+__pycache__/
+*.pyc
+
+# Runtime artifacts created when the app is executed
+supportdesk-app/supportdesk.db
+*.db
+
+# OS / editor noise
+.DS_Store
+*.swp
+
+# Claude Code local agent state
+.claude/
