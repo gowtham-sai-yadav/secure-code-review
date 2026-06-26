@@ -4,6 +4,10 @@ A secure code review of the **Scaler Support Desk** application (a deliberately 
 performed with **Semgrep** (SAST) followed by **manual verification** of every finding.
 
 📄 **Deliverable:** [`Secure_Code_Review_Report_SupportDesk.pdf`](Secure_Code_Review_Report_SupportDesk.pdf)
+&nbsp;·&nbsp; ✏️ Editable version: [`Secure_Code_Review_Report_SupportDesk.docx`](Secure_Code_Review_Report_SupportDesk.docx) (opens in Google Docs / Word)
+
+> All screenshots are **real captures** taken on a Kali Linux machine — the vulnerable code highlighted in
+> **VS Code** and the **Semgrep** scans run in a terminal.
 
 ## Summary
 
@@ -49,13 +53,13 @@ performed with **Semgrep** (SAST) followed by **manual verification** of every f
 
 ```
 .
-├── Secure_Code_Review_Report_SupportDesk.pdf   # ← main deliverable
-├── report.html                                 # report source (rendered to PDF)
-├── semgrep_results.txt / semgrep_results.json  # raw SAST output
-├── shots/                                       # screenshots (SAST output + highlighted code)
-├── supportdesk-app/                             # the reviewed source code
-├── gen_shots.py / gen_report.py                 # tooling used to build screenshots & report
-└── Secure Code Review Assignment ... .pdf       # original assignment brief
+├── Secure_Code_Review_Report_SupportDesk.pdf    # ← main deliverable (single PDF)
+├── Secure_Code_Review_Report_SupportDesk.docx   # editable version (Google Docs / Word)
+├── semgrep_results.txt / semgrep_results.json   # raw Semgrep SAST output
+├── shots/                                        # real screenshots: *_code.png (VS Code), term_*.png (Semgrep)
+├── supportdesk-app/                              # the reviewed source code
+├── supportdesk-app.zip                           # original app archive
+└── Secure Code Review Assignment ... .pdf        # original assignment brief
 ```
 
 ## Reproduce the Scan
